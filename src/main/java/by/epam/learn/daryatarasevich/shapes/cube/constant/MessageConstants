@@ -1,0 +1,16 @@
+package by.epam.learn.daryatarasevich.shapes.cube.constant;
+
+public class MessageConstants {
+    public static final String INVALID_DATA_INPUT = "Invalid data input";
+    public static final String FILE_NAME_IS_INCORRECT = "File name is incorrect";
+    public static final String CUBE_NOT_EXIST = "Such cube does not exist";
+    public static final String CUBE_IS_NULL = "Cube is null";
+    public static final String POINTS_ARE_NULL="Points are null";
+    public static final String LIST_IS_NULL="List is null";
+    public static final String INVALID_NUMBER_OF_PARAMETERS="Number of parameters is invalid";
+    public static final String INVALID_SYMBOL = "Invalid symbol";
+    public static final String PLANES_ARE_NOT_EQUAL = "Planes are not equal";
+    public static final String SIDES_ARE_NOT_EQUAL = "Sides are not equal";
+    public static final String LIST_OF_STRINGS_IS_NULL="List of strings is null";
+    public static final String FILEPATH_IS_NULL="Filepath is null";
+}
