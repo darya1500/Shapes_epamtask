@@ -1,0 +1,8 @@
+package by.epam.learn.daryatarasevich.shapes.cube.exception;
+
+public class InvalidDataInputException  extends Exception{
+
+    public InvalidDataInputException(String message) {
+        super(message);
+    }
+}
