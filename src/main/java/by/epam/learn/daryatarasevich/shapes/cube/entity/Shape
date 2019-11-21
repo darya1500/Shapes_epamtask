@@ -1,0 +1,4 @@
+package by.epam.learn.daryatarasevich.shapes.cube.entity;
+
+public abstract class Shape {
+}
