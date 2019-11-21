@@ -1,0 +1,71 @@
+package by.epam.learn.daryatarasevich.shapes.cube.converter;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.InvalidDataInputException;
+import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.shapes.cube.validation.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DataConverter {
+    private static final Logger logger = LogManager.getLogger(DataConverter.class);
+
+    public DataConverter() {
+    }
+    /**
+     * Convert data from List of Strings to List of Point[].
+     *
+     * @param listOfStrings
+     * @return listOfPoints
+     */
+    public ArrayList<Point[]> convertListOfStringsToListOfPoints(List<String> listOfStrings) throws InvalidDataInputException {
+        if (listOfStrings==null) {
+            logger.error(MessageConstants.LIST_OF_STRINGS_IS_NULL);
+            throw new NullPointerException(MessageConstants.LIST_OF_STRINGS_IS_NULL);
+        }
+        ArrayList<Integer[]> listOfValues=new ArrayList<>();
+        Validator dataValidator=new Validator();
+        ArrayList<Point[]> listOfPoints=new ArrayList<>();
+           if(!dataValidator.validateDataReaderOutput(listOfStrings)){
+               logger.error(MessageConstants.INVALID_DATA_INPUT);
+               throw new InvalidDataInputException(MessageConstants.INVALID_DATA_INPUT);
+           }
+        for (int i=0;i<listOfStrings.size();i++){
+            String[] temporary=listOfStrings.get(i).split(" ");
+            Integer[] temporaryInt=new Integer[temporary.length];
+            for (int j=0;j<temporary.length;j++){
+                temporaryInt[j]= Integer.parseInt(temporary[j]);
+            }
+            listOfValues.add(temporaryInt);
+    }
+        listOfPoints=convertListOfIntToPoints(listOfValues);
+        return listOfPoints;
+    }
+    /**
+     * Convert data from List of Integer[] to List of Point[].
+     *
+     * @param list
+     * @return listOfPoints
+     */
+    private ArrayList<Point[]> convertListOfIntToPoints(List<Integer[]> list){
+        if (list==null) {
+            logger.error(MessageConstants.LIST_IS_NULL);
+            throw new NullPointerException(MessageConstants.LIST_IS_NULL);
+        }
+        ArrayList<Point[]> listOfPoints=new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            Point[] points=new Point[8];
+            int z=0;
+            for (int j=0;j<list.get(i).length-2;){
+              Point point=new Point(list.get(i)[j],list.get(i)[j+1],list.get(i)[j+2]);
+              points[z]=point;
+              z++;
+              j=j+3;
+          }
+          listOfPoints.add(points);
+    }
+        return listOfPoints;
+    }
+}
