@@ -1,0 +1,43 @@
+package by.epam.learn.daryatarasevich.shapes.cube.entity;
+
+
+import java.util.Arrays;
+
+public class Cube extends Shape{
+    private Point[] points;
+
+    public Cube() {
+    }
+
+    public Cube(Point[] points) {
+        this.points = points;
+    }
+
+    public Point[] getPoints() {
+        return points;
+    }
+
+    public void setPoints(Point[] points) {
+        this.points = points;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o==null||o.getClass()!=this.getClass()){return false;}
+        Cube cube = (Cube) o;
+        if (!points.equals(cube.points)){return false;}
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int)((points==null)?0:points.hashCode());
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName()+" points=" + Arrays.toString(points)+";";
+    }
+}
+
