@@ -1,0 +1,36 @@
+package by.epam.learn.daryatarasevich.shapes.cube.converter;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.InvalidDataInputException;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.testng.Assert.*;
+
+public class DataConverterTest {
+    private Point[] points;
+    private DataConverter dataConverter;
+    private List<String> list;
+
+    @BeforeMethod
+    public void setUp() {
+        points= new Point[]{new Point(0, 1, 0), new Point(4, 1, 0),
+                new Point(4, 1, 4), new Point(0, 1, 4),
+                new Point(0, -3, 0), new Point(4, -3, 0),
+                new Point(4, -3, 4), new Point(0, -3, 4)};
+        dataConverter=new DataConverter();
+        list=new ArrayList<>();
+        list.add("0 1 0 4 1 0 4 1 4 0 1 4 0 -3 0 4 -3 0 4 -3 4 0 -3 4");
+    }
+
+    @Test
+    public void testConvertListOfStringsToListOfPoints_WhenDataIsCorrect_ShouldReturnInCorrectResult() throws InvalidDataInputException {
+       ArrayList<Point[]> expected=new ArrayList<>();
+       expected.add(points);
+       assertEquals(dataConverter.convertListOfStringsToListOfPoints(list),expected);
+     //   assertEquals(dataConverter.convertListOfStringsToListOfPoints(list),expected);
+    }
+}
