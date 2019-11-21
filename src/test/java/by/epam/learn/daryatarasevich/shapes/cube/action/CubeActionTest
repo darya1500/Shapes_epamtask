@@ -1,0 +1,76 @@
+package by.epam.learn.daryatarasevich.shapes.cube.action;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import org.testng.annotations.*;
+import static org.testng.Assert.*;
+
+public class CubeActionTest {
+    private Cube cube;
+    private Point[] points;
+    private CubeAction cubeAction;
+
+    @BeforeMethod
+    public void setUp() {
+        points= new Point[]{new Point(0, 1, 0), new Point(4, 1, 0),
+                new Point(4, 1, 4), new Point(0, 1, 4),
+                new Point(0, -3, 0), new Point(4, -3, 0),
+                new Point(4, -3, 4), new Point(4, -3, 4)};
+        cube= new Cube(points);
+        cubeAction=new CubeAction();
+    }
+
+    @Test
+    public void testCountCubeArea_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        int actual=cubeAction.countCubeArea(cube);
+        int expected=96;
+        assertEquals(actual,expected);
+    }
+
+    @Test
+    public void testCountCubeVolume_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        int actual=cubeAction.countCubeVolume(cube);
+        int expected=64;
+        assertEquals(actual,expected);
+    }
+
+    @Test
+    public void testCountCubeSide_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        int actual=cubeAction.countCubeSide(cube);
+        int expected=4;
+        assertEquals(actual,expected);
+    }
+
+    @Test
+    public void testCountVolumeRatioDividedByXPlane_WhenDataIsCorrect_ShouldReturnTrueResult() {
+        double actual=cubeAction.countVolumeRatioDividedByXPlane(cube);
+        double expected=0.3333333333333333;
+        assertEquals(actual,expected);
+    }
+
+    @Test
+    public void testIsCubeOnCoordinate_Y_WhenDataIncorrect_ShouldReturnTrueResult() {
+        assertTrue(cubeAction.isCubeOnCoordinate(cube,"y"));
+    }
+
+    @Test
+    public void testIsCubeOnCoordinate_Z_WhenDataIsCorrect_ShouldReturnTrueResult() {
+        assertTrue(cubeAction.isCubeOnCoordinate(cube,"z"));
+    }
+
+    @Test
+    public void testIsCubeOnCoordinate_X_WhenDataIsIncorrect_ShouldReturnFalseResult() {
+        assertFalse(cubeAction.isCubeOnCoordinate(cube,"x"));
+    }
+
+    @Test
+    public void testIsCube_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(cubeAction.isCube(cube));
+    }
+
+    @Test
+    public void testIsCube_WhenDataIsIncorrect_ShouldReturnFalse() {
+        Object o=new Object();
+        assertFalse(cubeAction.isCube(o));
+    }
+}
