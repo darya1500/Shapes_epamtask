@@ -1,0 +1,78 @@
+package by.epam.learn.daryatarasevich.shapes.cube.validation;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.testng.Assert.*;
+
+public class ValidatorTest {
+    private Validator validator;
+    private Point[] points;
+    private List<String> list;
+
+    @BeforeMethod
+    public void setUp() {
+        validator=new Validator();
+        points= new Point[]{new Point(0, 1, 0), new Point(4, 1, 0),
+                new Point(4, 1, 4), new Point(0, 1, 4),
+                new Point(0, -3, 0), new Point(4, -3, 0),
+                new Point(4, -3, 4), new Point(0, -3, 4)};
+        list=new ArrayList<>();
+        list.add("0 1 0 4 1 0 4 1 4 0 1 4 0 -3 0 4 -3 0 4 -3 4 0 -3 4");
+    }
+
+    @Test
+    public void testValidateDataReaderOutput_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.validateDataReaderOutput(list));
+    }
+
+    @Test
+    public void testValidateCube_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.validateCube(points));
+    }
+
+    @Test
+    public void testDoesFileExist() {
+        assertTrue(validator.doesFileExist("C:\\Users\\darya\\IdeaProjects\\NewProject1\\shapes\\TestData\\DataForTest"));
+    }
+
+    @Test
+    public void testValidatePoints_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.validatePoints(points));
+    }
+
+    @Test
+    public void testCheckPlanes_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.validatePlanes(points));
+    }
+
+    @Test
+    public void testTestDoesFileExist_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.doesFileExist("C:\\Users\\darya\\IdeaProjects\\NewProject1\\shapes\\TestData\\DataForTest"));
+    }
+
+    @Test
+    public void testCheckSides_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.validateSides(points));
+    }
+
+
+    @Test
+    public void testCheckPlaneY_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.validatePlaneY(points));
+    }
+
+    @Test
+    public void testCheckPlaneZ_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.validatePlaneZ(points));
+    }
+
+    @Test
+    public void testCheckPlaneX_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(validator.validatePlaneX(points));
+    }
+}
