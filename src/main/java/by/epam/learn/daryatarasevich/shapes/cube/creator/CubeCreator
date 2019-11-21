@@ -1,0 +1,36 @@
+package by.epam.learn.daryatarasevich.shapes.cube.creator;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.CubeNotExistException;
+import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.shapes.cube.validation.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class CubeCreator extends ShapeCreator{
+    private static final Logger logger = LogManager.getLogger(CubeCreator.class);
+    public CubeCreator() {
+    }
+    /**
+     * Create cube with a set of points organized in specific order
+     *
+     * @param points
+     * @return cube
+     */
+    @Override
+    public Cube create(Point[] points) throws CubeNotExistException {
+        if (points==null) {
+            logger.error(MessageConstants.POINTS_ARE_NULL);
+            throw new NullPointerException(MessageConstants.POINTS_ARE_NULL);
+        }
+        Validator validator=new Validator();
+        if (!validator.validateCube(points)){
+            throw new CubeNotExistException(MessageConstants.CUBE_NOT_EXIST);
+        }
+        Cube cube=new Cube();
+        cube.setPoints(points);
+        return cube;
+    }
+}
+
