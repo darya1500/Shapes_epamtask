@@ -1,0 +1,253 @@
+package by.epam.learn.daryatarasevich.shapes.cube.validation;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.io.File;
+import java.util.List;
+
+public class Validator {
+        private final int NUMBER_OF_POINTS =8;
+        private final int NUMBER_OF_POINTS_COORDINATES=24;
+        private static final Logger logger = LogManager.getLogger(Validator.class);
+
+        public Validator() {
+        }
+    /**
+     * Validate data in reader output by data length and containing number symbols only.
+     *
+     * @param list
+     * @return true(if length of data and symbols are correct)
+     */
+    public boolean validateDataReaderOutput(List<String> list){
+        if (list==null) {
+            logger.error(MessageConstants.LIST_IS_NULL);
+            throw new NullPointerException(MessageConstants.LIST_IS_NULL); }
+        return validateDataLength(list)&&validateDataSymbols(list);
+    }
+    /**
+     * Validate data length. Should be equal to NUMBER_OF_POINTS_COORDINATES.
+     *
+     * @param list
+     * @return true(if length of data is correct)
+     */
+    private boolean validateDataLength(List<String> list){
+        for (int i=0;i<list.size();i++){
+            String[] temporary=list.get(i).trim().split(" ");
+            if (temporary.length!=NUMBER_OF_POINTS_COORDINATES){
+                logger.info(MessageConstants.INVALID_NUMBER_OF_PARAMETERS);
+                return false; } }
+        return true;
+    }
+    /**
+     * Validate data containing number symbols only.
+     *
+     * @param list
+     * @return true(if symbols are correct)
+     */
+    private boolean validateDataSymbols(List<String> list){
+        for (int i=0;i<list.size();i++) {
+            String[] temporary = list.get(i).trim().split(" ");
+            for (int j=0;j<temporary.length;j++){
+                try {
+                    int y=Integer.parseInt(temporary[j]);
+                }catch (Exception e){
+                    logger.info(MessageConstants.INVALID_SYMBOL);
+                    return false; } } }
+        return true;
+    }
+    /**
+     * Validate cube by validating points, validating sides and validating planes.
+     *
+     * @param points
+     * @return true(if cube points,planes,sidea are correct)
+     */
+        public boolean validateCube(Point[] points){
+            if (points==null) {
+                logger.error(MessageConstants.POINTS_ARE_NULL);
+                throw new NullPointerException(MessageConstants.POINTS_ARE_NULL); }
+            return validatePoints(points)&& validateSides(points)&& validatePlanes(points);
+        }
+    /**
+     * Validate points by NUMBER_OF_POINTS and not being null.
+     *
+     * @param points
+     * @return true(if number of points is correct)
+     */
+        public boolean validatePoints(Point[] points){
+            if (points==null) {
+                logger.error(MessageConstants.POINTS_ARE_NULL);
+                throw new NullPointerException(MessageConstants.POINTS_ARE_NULL); }
+            return points.length== NUMBER_OF_POINTS;
+        }
+    /**
+     * Validate planes by validating plane X,plane Y, plane Z.
+     *
+     * @param points
+     * @return true(if plane X,plane Y and plane Z are validated)
+     */
+        public boolean validatePlanes(Point[] points){
+            if (points==null) {
+                logger.error(MessageConstants.POINTS_ARE_NULL);
+                throw new NullPointerException(MessageConstants.POINTS_ARE_NULL); }
+           return validatePlaneX(points)&& validatePlaneY(points)&& validatePlaneZ(points); }
+    /**
+     * Validate plane Y by validating that points 0,1,2,3 have the same Y coordinate.
+     * And by validating that points 4,5,6,7 have the same Y coordinate. Thus located on the same plane.
+     *
+     * @param points
+     * @return true(if plane Y is validated)
+     */
+    public boolean validatePlaneY(Point[] points) {
+        if (points==null) {
+            logger.error(MessageConstants.POINTS_ARE_NULL);
+            throw new NullPointerException(MessageConstants.POINTS_ARE_NULL); }
+        int[] planeYUp=new int[4];
+        int[] planeYDown=new int[4];
+        for (int i=0;i<4;i++){
+            planeYUp[i]=points[i].getY();
+            planeYDown[i]=points[i+4].getY(); }
+        if (planeYUp[0] != planeYUp[1] || planeYUp[1] != planeYUp[2] || planeYUp[2] != planeYUp[3]){
+            logger.info(MessageConstants.PLANES_ARE_NOT_EQUAL);
+            return false; }
+        if (planeYDown[0] != planeYDown[1] || planeYDown[1] != planeYDown[2] || planeYDown[2] != planeYDown[3]){
+            logger.info(MessageConstants.PLANES_ARE_NOT_EQUAL);
+            return false; }
+        return true;
+    }
+
+    /**
+     * Validate plane Z by validating that points 0,1,4,5 have the same Z coordinate.
+     * And by validating that points 2,3,6,7 have the same Z coordinate. Thus located on the same plane.
+     *
+     * @param points
+     * @return true(if plane Z is validated)
+     */
+    public boolean validatePlaneZ(Point[] points) {
+        if (points==null) {
+            logger.error(MessageConstants.POINTS_ARE_NULL);
+            throw new NullPointerException(MessageConstants.POINTS_ARE_NULL); }
+        int[] planeZUp=new int[4];
+        int[] planeZDown=new int[4];
+        int count=0;
+        for (int i=0;i<5;){
+            planeZUp[count]=points[i].getZ();
+            planeZDown[count]=points[i+2].getZ();
+            count++;
+            planeZUp[count]=points[i+1].getZ();
+            planeZDown[count]=points[i+3].getZ();
+            count++;
+            i=i+4;
+        }
+        if (planeZUp[0]!=planeZUp[1]||planeZUp[1]!=planeZUp[2]||planeZUp[2]!=planeZUp[3]){
+            logger.info(MessageConstants.PLANES_ARE_NOT_EQUAL);
+            return false;
+        }
+        if (planeZDown[0]!=planeZDown[1]||planeZDown[1]!=planeZDown[2]||planeZDown[2]!=planeZDown[3]){
+            logger.info(MessageConstants.PLANES_ARE_NOT_EQUAL);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validate plane X by validating that points 0,3,4,7 have the same X coordinate.
+     * And by validating that points 1,2,5,6 have the same X coordinate. Thus located on the same plane.
+     *
+     * @param points
+     * @return true(if plane X is validated)
+     */
+    public boolean validatePlaneX(Point[] points) {
+        if (points==null) {
+            logger.error(MessageConstants.POINTS_ARE_NULL);
+            throw new NullPointerException(MessageConstants.POINTS_ARE_NULL);
+        }
+        int[] planeXUp=new int[4];
+        int[] planeXDown=new int[4];
+        planeXUp[0]=points[0].getX();
+        planeXUp[1]=points[3].getX();
+        planeXUp[2]=points[4].getX();
+        planeXUp[3]=points[7].getX();
+        planeXDown[0]=points[1].getX();
+        planeXDown[1]=points[2].getX();
+        planeXDown[2]=points[5].getX();
+        planeXDown[3]=points[6].getX();
+        if (planeXUp[0] != planeXUp[1] || planeXUp[1] != planeXUp[2] || planeXUp[2] != planeXUp[3]){
+            logger.info(MessageConstants.PLANES_ARE_NOT_EQUAL);
+            return false;
+        }
+        if (planeXDown[0]!=planeXDown[1]||planeXDown[1]!=planeXDown[2]||planeXDown[2]!=planeXDown[3]){
+            logger.info(MessageConstants.PLANES_ARE_NOT_EQUAL);
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Validate sides by comparing all side to the one side. As cube sides should all be equal
+     *
+     * @param points
+     * @return true(if all sides are equal)
+     */
+        public boolean validateSides(Point[] points){
+            if (points==null) {
+                logger.error(MessageConstants.POINTS_ARE_NULL);
+                throw new NullPointerException(MessageConstants.POINTS_ARE_NULL);
+            }
+            int standardSide=Math.abs(points[1].getX()-points[0].getX());;
+            int[] allSidesValues=getAllSidesValues(points);
+            for (int i=0;i<allSidesValues.length;i++){
+                if (allSidesValues[i]!=standardSide){
+                    logger.info(MessageConstants.SIDES_ARE_NOT_EQUAL);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+    /**
+     * Get all side values by substracting one coordinate value from another coordinate value located next to it.
+     *
+     * @param points
+     * @return allSidesValues
+     */
+        private int[] getAllSidesValues(Point[] points){
+            if (points==null) {
+                logger.error(MessageConstants.POINTS_ARE_NULL);
+                throw new NullPointerException(MessageConstants.POINTS_ARE_NULL);
+            }
+            int[] allSidesValues=new int[12];
+            int x=0;
+            for (int i=0;i<4;i++) {
+                allSidesValues[x]= Math.abs(points[i].getY() - points[i+4].getY());
+                x++;
+            }
+            for (int i=0;i<points.length;){
+                allSidesValues[x]= Math.abs(points[i].getX() -points[i+1].getX());
+                i=i+2;
+                x++;
+            }
+            for (int i=0;i<points.length;){
+                allSidesValues[x]= Math.abs(points[i].getZ() - points[i+3].getZ());
+                x++;
+                allSidesValues[x]= Math.abs(points[i+1].getZ() - points[i+2].getZ());
+                x++;
+                i=i+4;
+            }
+            return allSidesValues;
+        }
+    /**
+     * Validate that file exists.
+     *
+     * @param fileName
+     * @return true(if file exists)
+     */
+    public boolean doesFileExist(String fileName){
+        if (fileName != null && new File(fileName).exists()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    }
+
