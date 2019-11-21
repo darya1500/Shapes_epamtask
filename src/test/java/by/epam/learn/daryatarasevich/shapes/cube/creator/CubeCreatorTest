@@ -1,0 +1,49 @@
+package by.epam.learn.daryatarasevich.shapes.cube.creator;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.CubeNotExistException;
+import by.epam.learn.daryatarasevich.shapes.cube.validation.Validator;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
+
+public class CubeCreatorTest {
+    private Point[] points;
+    private Cube cube;
+    private CubeCreator cubeCreator;
+
+    @BeforeMethod
+    public void setUp() {
+        points= new Point[]{new Point(0, 1, 0), new Point(4, 1, 0),
+                new Point(4, 1, 4), new Point(0, 1, 4),
+                new Point(0, -3, 0), new Point(4, -3, 0),
+                new Point(4, -3, 4), new Point(0, -3, 4)};
+        cube= new Cube(points);
+        cubeCreator=new CubeCreator();
+    }
+
+    @Test
+    public void testCreate_WhenDataIsCorrect_ShouldReturnCorrectResult() throws CubeNotExistException {
+       Cube expected=cube;
+       Cube actual=cubeCreator.create(points);
+       assertEquals(actual,expected);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void testCreate() throws CubeNotExistException {
+        Cube expected=cube;
+        points=null;
+        Cube actual=cubeCreator.create(points);
+        assertEquals(actual,expected);
+    }
+
+    @Test(expectedExceptions = CubeNotExistException.class)
+    public void testCreate_Exception() throws CubeNotExistException {
+        Cube expected=cube;
+        points[2].setX(55555);
+        Cube actual=cubeCreator.create(points);
+        assertEquals(actual,expected);
+    }
+}
