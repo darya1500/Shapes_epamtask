@@ -1,0 +1,8 @@
+package by.epam.learn.daryatarasevich.shapes.cube.exception;
+
+public class IncorrectFilePathException extends Exception {
+
+    public IncorrectFilePathException(String message) {
+        super(message);
+    }
+}
