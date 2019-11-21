@@ -27,10 +27,14 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testConvertListOfStringsToListOfPoints_WhenDataIsCorrect_ShouldReturnInCorrectResult() throws InvalidDataInputException {
-       ArrayList<Point[]> expected=new ArrayList<>();
+    public void testConvertListOfStringsToListOfPoints_WhenDataIsCorrect_ShouldReturnCorrectResult() throws InvalidDataInputException {
+       List<Point[]> expected=new ArrayList<>();
        expected.add(points);
-       assertEquals(dataConverter.convertListOfStringsToListOfPoints(list),expected);
-     //   assertEquals(dataConverter.convertListOfStringsToListOfPoints(list),expected);
+       ArrayList<Point[]> actual=dataConverter.convertListOfStringsToListOfPoints(list);
+       for (int i=0;i<expected.size();i++){
+           for (int j=0;j<expected.get(i).length;j++){
+               assertEquals(actual.get(i)[j], expected.get(i)[j]);
+           }
+       }
     }
 }
