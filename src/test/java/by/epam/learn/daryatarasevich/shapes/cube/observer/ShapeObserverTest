@@ -1,0 +1,48 @@
+package by.epam.learn.daryatarasevich.shapes.cube.observer;
+
+import by.epam.learn.daryatarasevich.shapes.cube.action.CubeAction;
+import by.epam.learn.daryatarasevich.shapes.cube.converter.DataConverter;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.InvalidDataInputException;
+import by.epam.learn.daryatarasevich.shapes.cube.warehouse.DataForStorage;
+import by.epam.learn.daryatarasevich.shapes.cube.warehouse.Warehouse;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.*;
+
+public class ShapeObserverTest {
+    private Cube cube;
+    private Point[] points;
+    private ShapeObserver shapeObserver;
+    private Warehouse warehouse;
+    private CubeAction cubeAction;
+
+    @BeforeMethod
+    public void setUp() throws InvalidDataInputException {
+        DataConverter dataConverter = new DataConverter();
+        List<String> stringOfNumbers = new ArrayList<>();
+        String s="0 2 0 2 2 0 2 2 2 0 2 2 0 0 0 2 0 0 2 0 2 0 0 2";
+        stringOfNumbers.add(s);
+        points=dataConverter.convertListOfStringsToListOfPoints(stringOfNumbers).get(0);
+        shapeObserver=new ShapeObserver();
+        warehouse=Warehouse.getInstance();
+        cubeAction=new CubeAction();
+    }
+
+    @Test
+    public void testHandleEvent() {
+        cube=new Cube(null);
+        cube.setPoints(points);
+        cube.addObserver(shapeObserver);
+        DataForStorage dataForStorage=new DataForStorage(cubeAction.calculateArea(cube),cubeAction.calculateVolume(cube));
+        warehouse.put(cube.getId(),dataForStorage);
+        int actual = Warehouse.getInstance().getDataForStorage(cube.getId()).getArea();
+        ShapeEvent shapeEvent=new ShapeEvent(cube);
+        shapeObserver.handleEvent(shapeEvent);
+        int expected=24;
+        assertEquals(actual,expected);
+    }
+}
