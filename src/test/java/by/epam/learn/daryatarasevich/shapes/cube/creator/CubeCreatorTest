@@ -3,10 +3,8 @@ package by.epam.learn.daryatarasevich.shapes.cube.creator;
 import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
 import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
 import by.epam.learn.daryatarasevich.shapes.cube.exception.CubeNotExistException;
-import by.epam.learn.daryatarasevich.shapes.cube.validation.Validator;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.*;
 
 public class CubeCreatorTest {
