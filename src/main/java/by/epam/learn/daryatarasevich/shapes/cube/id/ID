@@ -1,0 +1,18 @@
+package by.epam.learn.daryatarasevich.shapes.cube.id;
+
+
+public class ID {
+    private static long idCurrent;
+
+    public ID() {
+    }
+    
+    /**
+     * Creates long ID.
+     *
+     */
+    public long createID(){
+        idCurrent= (long) (this.hashCode()+Math.random()*100000000);
+        return idCurrent;
+    }
+}
