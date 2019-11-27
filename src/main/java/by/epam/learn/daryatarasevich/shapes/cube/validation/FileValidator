@@ -1,0 +1,23 @@
+package by.epam.learn.daryatarasevich.shapes.cube.validation;
+
+import java.io.File;
+
+public class FileValidator {
+
+    public FileValidator() {
+    }
+
+    /**
+     * Validate that file exists.
+     *
+     * @param fileName
+     * @return true(if file exists)
+     */
+    public boolean doesFileExist(String fileName){
+        if (fileName != null && new File(fileName).exists()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
