@@ -36,10 +36,10 @@ Objects не использовать.
 Для решения данной задачи использовать паттерны [Observer](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/observer) (можно использовать Flow API) и Singleton 
 (потокобезопасные варианты использовать запрещено).
 + Все созданные объекты геометрических фигур сохранить в объекте-репозитории.
-+ Используя шаблон Repository, разработать спецификации по добавлению, удалению и изменению объектов репозитория.
-+ Разработать спецификации по поиску объектов и групп объектов в репозитории. По ID, по имени, по координатам
-(например: найти все объекты точки которых находятся в первом квадранте, найти все объекты площади поверхности 
-(объемы, периметры) которых заключены в заданный диапазон, найти объекты находящиеся на расстоянии в заданном диапазоне от 
++ Используя шаблон [Repository](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/repository), разработать спецификации по добавлению, удалению и изменению объектов репозитория.
++ Разработать спецификации по поиску объектов и групп объектов в репозитории. По [ID](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/specification/ByIdSpecification), [по имени](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/specification/ByNameSpecification), по координатам
+(например: [найти все объекты точки которых находятся в первом квадранте](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/specification/ByLocationInFirstQuadrantSpecification), [найти все объекты площади поверхности 
+(объемы, периметры) которых заключены в заданный диапазон](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/specification/ByRangeAreaLessThanHundredSpecification), найти объекты находящиеся на расстоянии в заданном диапазоне от 
 начала координат)
-+ Разработать методы сортировки наборов объектов по ID, по имени, по координатам Х первой точки, по координатам Y первой
-точки и т д. Использовать интерфейс Comparator.
++ Разработать методы сортировки наборов объектов по [ID](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/comparator/IdComparator), [по имени](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/comparator/ShapeNameComparator), [по координатам Х первой точки](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/comparator/ByFirstPointXCoordinateComparator) , [по координатам Y первой
+точки](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/comparator/ByFirstPointYCoordinateComparator) и т д. Использовать интерфейс [Comparator](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/comparator).
