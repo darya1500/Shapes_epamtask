@@ -1,0 +1,38 @@
+package by.epam.learn.daryatarasevich.shapes.cube.comparator;
+
+import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.Comparator;
+
+public class ByFirstPointXCoordinateComparator implements Comparator<Shape> {
+    private static final Logger LOGGER = LogManager.getLogger(ByFirstPointXCoordinateComparator.class);
+    
+    /**
+     * Compares 2 shapes by value of first Point coordinate x.
+     *
+     * @param shapeOne -to compare value of first Point coordinate x
+     * @param shapeTwo -to compare value of first Point coordinate x
+     */
+     
+    @Override
+    public int compare(Shape shapeOne, Shape shapeTwo) {
+        if (shapeOne==null||shapeTwo==null){
+            LOGGER.error(MessageConstants.SHAPE_IS_NULL);
+            throw new IllegalArgumentException(MessageConstants.SHAPE_IS_NULL);
+        }
+        Point[] points=shapeOne.getPoints();
+        int xOne=points[0].getX();
+        Point[] pointsTwo=shapeTwo.getPoints();
+        int xTwo=pointsTwo[0].getX();
+        if (xOne==xTwo){
+            return 0;
+        }else if(xOne<xTwo){
+            return -1;
+        }else {
+            return 1;
+        }
+    }
+}
