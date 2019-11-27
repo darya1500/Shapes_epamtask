@@ -1,6 +1,7 @@
 package by.epam.learn.daryatarasevich.shapes.cube.entity;
 
-    public class Point {
+
+public class Point {
         private int x;
         private int y;
         private int z;
@@ -40,19 +41,29 @@ package by.epam.learn.daryatarasevich.shapes.cube.entity;
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) { return true; }
-            if (o==null||o.getClass()!=this.getClass()){return false;}
+            if (this == o) {
+                return true;
+            }
+            if (o==null||o.getClass()!=this.getClass()){
+                return false;
+            }
             Point point = (Point) o;
-            if (x!=point.x){return  false; }
-            if (y!=point.y){return false;}
-            if (z!=point.z){return false;}
+            if (x!=point.x){
+                return  false;
+            }
+            if (y!=point.y){
+                return false;
+            }
+            if (z!=point.z){
+                return false;
+            }
             return true;
         }
 
         @Override
         public int hashCode() {
             final int magicNumber=31;
-            return x+y+z*magicNumber;
+            return (x*magicNumber+y)*magicNumber+z;
         }
 
         @Override
