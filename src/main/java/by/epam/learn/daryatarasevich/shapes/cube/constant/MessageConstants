@@ -13,4 +13,13 @@ public class MessageConstants {
     public static final String SIDES_ARE_NOT_EQUAL = "Sides are not equal";
     public static final String LIST_OF_STRINGS_IS_NULL="List of strings is null";
     public static final String FILEPATH_IS_NULL="Filepath is null";
+    public static final String FILEPATH_IS_INCORRECT ="Filepath is incorrect";
+    public static final String STRING_IS_NULL ="String is null" ;
+    public static final String STRING_IS_EMPTY = "String is empty" ;
+    public static final String SPECIFICATION_IS_NULL = "Specification is null";
+    public static final String REPOSITORY_IS_EMPTY = "Repository is empty";
+    public static final String SHAPE_NOT_FOUND ="Such shape is not found" ;
+    public static final String REPOSITORY_ALREADY_CONTAINS_SUCH_SHAPE = "Repository already contains such shape";
+    public static final String COMPARATOR_IS_NULL = "Comparator is null";
+    public static final String SHAPE_IS_NULL = "Shape is null";
 }
