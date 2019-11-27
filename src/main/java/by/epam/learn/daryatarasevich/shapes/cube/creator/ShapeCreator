@@ -5,6 +5,7 @@ import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
 import by.epam.learn.daryatarasevich.shapes.cube.exception.CubeNotExistException;
 
 public abstract class ShapeCreator {
+    
     public Shape create(Point[] points) throws CubeNotExistException {
         return null;
     }
