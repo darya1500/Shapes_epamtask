@@ -1,0 +1,32 @@
+package by.epam.learn.daryatarasevich.shapes.cube.specification;
+
+import by.epam.learn.daryatarasevich.shapes.cube.converter.DataConverter;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.InvalidDataInputException;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.*;
+
+public class ByIdSpecificationTest {
+    private Cube cube;
+    private ByIdSpecification byIdSpecification;
+
+    @BeforeMethod
+    public void setUp() throws InvalidDataInputException {
+        DataConverter dataConverter = new DataConverter();
+        List<String> stringOfNumbers = new ArrayList<>();
+        String s="0 2 0 2 2 0 2 2 2 0 2 2 0 0 0 2 0 0 2 0 2 0 0 2";
+        stringOfNumbers.add(s);
+        Point[] p = dataConverter.convertListOfStringsToListOfPoints(stringOfNumbers).get(0);
+        cube =new Cube(p);
+        byIdSpecification=new ByIdSpecification(1000000);
+    }
+
+    @Test
+    public void testSpecified_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(byIdSpecification.specified(cube));
+    }
+}
