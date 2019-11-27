@@ -1,43 +1,71 @@
 package by.epam.learn.daryatarasevich.shapes.cube.entity;
 
-
+import by.epam.learn.daryatarasevich.shapes.cube.id.ID;
+import by.epam.learn.daryatarasevich.shapes.cube.observer.ShapeEvent;
+import by.epam.learn.daryatarasevich.shapes.cube.observer.ShapeObserver;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class Cube extends Shape{
+public class Cube extends Shape {
     private Point[] points;
-
-    public Cube() {
-    }
+    private long id;
+    private List<ShapeObserver> observers=new ArrayList<>();
 
     public Cube(Point[] points) {
+        ID id=new ID();
+       this.id=id.createID();
         this.points = points;
+    }
+
+    public void setPoints(Point[] points) {
+        this.points = points;
+        notifyShapeObserver();
     }
 
     public Point[] getPoints() {
         return points;
     }
 
-    public void setPoints(Point[] points) {
-        this.points = points;
+    public void addObserver(ShapeObserver observer){
+        observers.add(observer);
+    }
+
+    public void removeObserver(ShapeObserver observer){
+        observers.remove(observer);
+    }
+
+    @Override
+    public long getId() {
+        return id;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o==null||o.getClass()!=this.getClass()){return false;}
+        if (this == o) {
+            return true;
+        }
+        if (o==null||o.getClass()!=this.getClass()){
+            return false;
+        }
         Cube cube = (Cube) o;
-        if (!points.equals(cube.points)){return false;}
-        return true;
+        return points.equals(cube.points);
     }
 
     @Override
     public int hashCode() {
-        return (int)((points==null)?0:points.hashCode());
+        return (int)((points==null)?0: Arrays.hashCode(points));
     }
 
     @Override
     public String toString() {
         return getClass().getName()+" points=" + Arrays.toString(points)+";";
+    }
+
+    private void notifyShapeObserver() {
+           for (ShapeObserver observer:observers){
+               observer.handleEvent(new ShapeEvent(this));
+           }
     }
 }
 
