@@ -1,0 +1,28 @@
+package by.epam.learn.daryatarasevich.shapes.cube.observer;
+
+import by.epam.learn.daryatarasevich.shapes.cube.action.ShapeAction;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+import by.epam.learn.daryatarasevich.shapes.cube.warehouse.DataForStorage;
+import by.epam.learn.daryatarasevich.shapes.cube.warehouse.Warehouse;
+
+public class ShapeObserver implements Observer {
+    /**
+     * Handles a prototypical Event. Adds data to Warehouse.
+     *
+     * @param event - event that occurred
+     */
+
+    @Override
+    public void handleEvent(ShapeEvent event) {
+        Shape shape=event.getSource();
+        ShapeAction shapeAction=new ShapeAction();
+        int area=shapeAction.calculateArea(shape);
+        int volume=shapeAction.calculateVolume(shape);
+        long id=shape.getId();
+        DataForStorage dataForStorage=new DataForStorage();
+        dataForStorage.setArea(area);
+        dataForStorage.setVolume(volume);
+        Warehouse warehouse=Warehouse.getInstance();
+        warehouse.put(id,dataForStorage);
+     }
+}
