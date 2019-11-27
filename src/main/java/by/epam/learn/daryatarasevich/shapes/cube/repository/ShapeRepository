@@ -1,0 +1,158 @@
+package by.epam.learn.daryatarasevich.shapes.cube.repository;
+
+import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+import by.epam.learn.daryatarasevich.shapes.cube.specification.Specification;
+import com.google.common.annotations.VisibleForTesting;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.*;
+
+public class ShapeRepository implements Repository<Shape> {
+    private static final ShapeRepository INSTANCE=new ShapeRepository();
+    public static List<Shape> repository=new ArrayList<>();
+    private static final Logger LOGGER = LogManager.getLogger(ShapeRepository.class);
+
+    @VisibleForTesting
+    private ShapeRepository () {
+    }
+
+    public static ShapeRepository getInstance(){
+        return INSTANCE;
+    }
+    
+    /**
+     * Adds shape to repository.
+     *
+     * @param shape -to be added to repository.
+     */
+     
+    @Override
+    public void add(Shape shape) {
+        repository.add(shape);
+    }
+    
+    /**
+     * Removes shape from repository.
+     *
+     * @param shape -to be removed from repository.
+     * @throws NullPointerException if repository is empty
+     */
+     
+    @Override
+    public void remove(Shape shape) {
+        if (repository.isEmpty()){
+            LOGGER.error(MessageConstants.REPOSITORY_IS_EMPTY);
+            throw new NullPointerException(MessageConstants.REPOSITORY_IS_EMPTY);
+        }
+        repository.remove(shape);
+    }
+    
+    /**
+     * Removes shape specified by specification from repository.
+     *
+     * @param specification -specifies shape to be removed from repository.
+     * @throws NullPointerException if specification is null
+     * @throws  NullPointerException if repository is empty
+     */
+     
+    @Override
+    public void remove(Specification specification) {
+        if (specification == null) {
+            LOGGER.error(MessageConstants.SPECIFICATION_IS_NULL);
+            throw new NullPointerException(MessageConstants.SPECIFICATION_IS_NULL);
+        }
+        if (!repository.isEmpty()) {
+            for (Shape shape : repository) {
+                if (specification.specified(shape)) {
+                    repository.remove(shape);
+                }
+            }
+        }else {
+            LOGGER.error(MessageConstants.REPOSITORY_IS_EMPTY);
+            throw new NullPointerException(MessageConstants.REPOSITORY_IS_EMPTY);
+        }
+    }
+    
+    /**
+     * Addes shape to repository if it is not already there.
+     *
+     * @param shape -to be updated.
+     */
+     
+    @Override
+    public void update(Shape shape) {
+        if (!repository.contains(shape)) {
+            repository.add(shape);
+        }else {
+            LOGGER.info(MessageConstants.SHAPE_NOT_FOUND);
+        }
+    }
+    
+    /**
+     * Addes shape specified by specification to repository if it is not already there.
+     *
+     * @param specification -specifies shape to be updated.
+     * @throws NullPointerException if specification is null
+     */
+     
+    @Override
+    public void update(Specification specification) {
+        if (specification == null) {
+            LOGGER.error(MessageConstants.SPECIFICATION_IS_NULL);
+            throw new NullPointerException(MessageConstants.SPECIFICATION_IS_NULL);
+        }
+        if (!repository.isEmpty()) {
+            for (Shape shape : repository) {
+                if (specification.specified(shape)) {
+                    if (!repository.contains(shape)) {
+                        repository.add(shape);
+                    }else {
+                        LOGGER.info(MessageConstants.REPOSITORY_ALREADY_CONTAINS_SUCH_SHAPE);
+                    }
+                }
+            }
+        }else {
+            LOGGER.error(MessageConstants.REPOSITORY_IS_EMPTY);
+            throw new NullPointerException(MessageConstants.REPOSITORY_IS_EMPTY);
+        }
+    }
+    
+    /**
+     * Sorts repository specified by comparator.
+     *
+     * @param comparator -to sort repository by.
+     * @throws NullPointerException if comparator is null
+     */
+     
+    @Override
+    public void sort(Comparator<Shape> comparator) {
+        if (comparator == null) {
+            LOGGER.error(MessageConstants.COMPARATOR_IS_NULL);
+            throw new NullPointerException(MessageConstants.COMPARATOR_IS_NULL);
+        }
+        repository.sort(comparator);
+    }
+    
+    /**
+     * Searches repository for shapes specified by specification.
+     *
+     * @param specification -to search repository for.
+     * @throws NullPointerException if specification is null
+     */
+     
+    @Override
+    public List query(Specification specification) {
+        if (specification == null) {
+            LOGGER.error(MessageConstants.SPECIFICATION_IS_NULL);
+            throw new NullPointerException(MessageConstants.SPECIFICATION_IS_NULL);
+        }
+        List<Shape> result = new ArrayList<>();
+        for (Shape shape : repository) {
+            if (specification.specified(shape)) {
+                result.add(shape);
+            }
+        }
+        return result;
+    }
+    }
