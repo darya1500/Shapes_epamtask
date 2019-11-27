@@ -13,20 +13,20 @@
 такими как вычисление, поиск и т.д.).
 + Разработать [action](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action)-классы реализующие заданные функциональности, например: «[Реализовать методы вычисления 
 площади и периметра круга](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action/CubeAction)»
-+ Параметры, необходимые для создания объектов, организовать как чтение информации из файла (.txt). Часть 
++ Параметры, необходимые для создания объектов, организовать как [чтение информации из файла](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/reader/DataReader) [(.txt)](https://github.com/darya1500/epam_training/blob/master/testdata/datafortest.txt). Часть 
 данных должны некорректной. Если встретилась некорректная строка, приложение должно переходить к следующей 
 строке. Все файлы должны находиться в отдельном каталоге.
 + Для чтения из файла использовать только методы, появившиеся в Java8.
-+ Разработать validation-классы для проверки результатов вычислений параметров фигур, а также для валидации 
-исходных данных для создания объектов entity-классов.
++ Разработать [validation](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/validation)-классы для [проверки результатов вычислений параметров фигур](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/validation/Validator), а также для [валидации 
+исходных данных для создания объектов entity-классов](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/validation/DataReaderOutputValidator).
 + Для классов-сущностей следует переопределять методы класса Object: toString(), equals(), hashCode(). Методы класса
 Objects не использовать.
 + При решении задачи для создания entity-классов можно использовать паттерн Factory Method.
 + Все классы приложения должны быть структурированы по пакетам.
-+ Использовать собственные классы исключительных ситуаций.
++ Использовать [собственные классы исключительных ситуаций](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/exception).
 + Оформление кода должно соответствовать Java Code Convention.
 + Для записи логов использовать Log4J2.
-+ Код должен быть покрыт Unit-тестами. Использовать TestNG. При написании тестов запрещено: создавать неаннотированные
++ Код должен быть покрыт Unit-[тестами](https://github.com/darya1500/epam_training/tree/master/src/test/java/by/epam/learn/daryatarasevich/shapes/cube). Использовать TestNG. При написании тестов запрещено: создавать неаннотированные
 методы, писать логи и использовать операторы ветвления: if, for, while, do\while, switch; использовать в тест-методе более одного Assert-метода.
 + Класс с методом main в задании должен отсутствовать. Запуск только тестами.
 
