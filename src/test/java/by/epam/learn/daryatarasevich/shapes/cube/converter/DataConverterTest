@@ -28,7 +28,7 @@ public class DataConverterTest {
     public void testConvertListOfStringsToListOfPoints_WhenDataIsCorrect_ShouldReturnCorrectResult() throws InvalidDataInputException {
        List<Point[]> expected=new ArrayList<>();
        expected.add(points);
-       ArrayList<Point[]> actual=dataConverter.convertListOfStringsToListOfPoints(list);
+       List<Point[]> actual=dataConverter.convertListOfStringsToListOfPoints(list);
        for (int i=0;i<expected.size();i++){
            for (int j=0;j<expected.get(i).length;j++){
                assertEquals(actual.get(i)[j], expected.get(i)[j]);
