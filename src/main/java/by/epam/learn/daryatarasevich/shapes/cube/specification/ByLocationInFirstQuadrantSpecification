@@ -1,0 +1,18 @@
+package by.epam.learn.daryatarasevich.shapes.cube.specification;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+
+public class ByLocationInFirstQuadrantSpecification implements Specification<Shape> {
+
+    @Override
+    public boolean specified(Shape shape) {
+        Point[] points=shape.getPoints();
+        for (Point point:points){
+            if (point.getX()<0||point.getY()<0||point.getZ()<0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
