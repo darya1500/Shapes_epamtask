@@ -1,4 +1,14 @@
 package by.epam.learn.daryatarasevich.shapes.cube.entity;
 
 public abstract class Shape {
+    private long  id;
+    private Point[] points;
+
+    public long getId() {
+        return 0;
+    }
+
+    public Point[] getPoints() {
+        return points;
+    }
 }
