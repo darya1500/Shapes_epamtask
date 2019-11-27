@@ -1,0 +1,27 @@
+package by.epam.learn.daryatarasevich.shapes.cube.comparator;
+
+import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.Comparator;
+
+public class ShapeNameComparator implements Comparator<Shape> {
+    private static final Logger LOGGER = LogManager.getLogger(ShapeNameComparator.class);
+
+    /**
+     * Compares 2 shapes by name of the shape.
+     *
+     * @param shapeOne -to compare name of shape
+     * @param shapeTwo -to compare name of shape
+     */
+
+    @Override
+    public int compare(Shape shapeOne, Shape shapeTwo) {
+        if (shapeOne==null||shapeTwo==null){
+            LOGGER.error(MessageConstants.SHAPE_IS_NULL);
+            throw new NullPointerException(MessageConstants.SHAPE_IS_NULL);
+        }
+        return shapeOne.getClass().getSimpleName().compareTo(shapeTwo.getClass().getSimpleName());
+    }
+}
