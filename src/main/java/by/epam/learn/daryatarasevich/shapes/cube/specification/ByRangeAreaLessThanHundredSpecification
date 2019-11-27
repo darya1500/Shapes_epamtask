@@ -1,0 +1,19 @@
+package by.epam.learn.daryatarasevich.shapes.cube.specification;
+
+import by.epam.learn.daryatarasevich.shapes.cube.action.ShapeAction;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+
+public class ByRangeAreaLessThanHundredSpecification implements Specification<Shape> {
+       private int rangeOne=0;
+       private int rangeTwo=100;
+
+    @Override
+    public boolean specified(Shape shape) {
+        ShapeAction shapeAction=new ShapeAction();
+        int area=shapeAction.calculateArea(shape);
+        if (area<=rangeTwo&&area>=rangeOne){
+            return true;
+        }
+        return false;
+    }
+}
