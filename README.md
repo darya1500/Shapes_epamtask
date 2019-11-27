@@ -2,17 +2,17 @@
 
 ### Индивидуальное задание
 #### Куб.
-Разработать классы [Точка](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/entity/Point) и [Куб](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/entity/Cube). Создать методы и тесты: вычисления площади поверхности куба,
-объема куба; соотношения объемов получаемых в результате рассечения куба координатной плоскостью
-является ли объект кубом; находится ли основание куба на одной из координатных плоскостей.
+Разработать классы [Точка](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/entity/Point) и [Куб](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/entity/Cube). Создать методы и тесты: [вычисления площади поверхности куба](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action/CubeAction),
+[объема куба](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action/CubeAction); [соотношения объемов получаемых в результате рассечения куба координатной плоскостью](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action/CubeAction);
+[является ли объект кубом](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action/CubeAction); [находится ли основание куба на одной из координатных плоскостей](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action/CubeAction).
 
 #### Task Shapes Chapter A
 + Разработать
 [entity](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/entity) классы
 + Entity-классы не следует наполнять методами, выполняющими функциональные действия (методами бизнес-логики, 
 такими как вычисление, поиск и т.д.).
-+ Разработать action-классы реализующие заданные функциональности, например: «Реализовать методы вычисления 
-площади и периметра круга»
++ Разработать [action](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action)-классы реализующие заданные функциональности, например: «[Реализовать методы вычисления 
+площади и периметра круга](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/action/CubeAction)»
 + Параметры, необходимые для создания объектов, организовать как чтение информации из файла (.txt). Часть 
 данных должны некорректной. Если встретилась некорректная строка, приложение должно переходить к следующей 
 строке. Все файлы должны находиться в отдельном каталоге.
