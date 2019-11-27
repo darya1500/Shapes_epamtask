@@ -1,0 +1,35 @@
+package by.epam.learn.daryatarasevich.shapes.cube.comparator;
+
+import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.util.Comparator;
+
+public class IdComparator implements Comparator<Shape> {
+    private static final Logger LOGGER = LogManager.getLogger(IdComparator.class);
+
+    /**
+     * Compares 2 shapes by id.
+     *
+     * @param shapeOne -to compare id
+     * @param shapeTwo -to compare id
+     */
+
+    @Override
+    public int compare(Shape shapeOne, Shape shapeTwo) {
+        if (shapeOne==null||shapeTwo==null){
+            LOGGER.error(MessageConstants.SHAPE_IS_NULL);
+            throw new NullPointerException(MessageConstants.SHAPE_IS_NULL);
+        }
+        long idOne=shapeOne.getId();
+        long idTwo=shapeTwo.getId();
+        if (idOne==idTwo){
+            return 0;
+        }else if(idOne<idTwo){
+            return -1;
+        }else {
+            return 1;
+        }
+    }
+}
