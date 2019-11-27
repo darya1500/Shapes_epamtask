@@ -1,157 +1,138 @@
 package by.epam.learn.daryatarasevich.shapes.cube.action;
 
+import by.epam.learn.daryatarasevich.shapes.cube.constant.Coordinate;
 import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
 import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
 import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.IllegalCoordinateException;
+import by.epam.learn.daryatarasevich.shapes.cube.validation.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class CubeAction {
+public class CubeAction extends ShapeAction{
     private final int CUBE_AREA_CONSTANT=6;
     private final int CUBE_VOLUME_CONSTANT=3;
-    private static final Logger logger = LogManager.getLogger(CubeAction.class);
+    private static final Logger LOGGER = LogManager.getLogger(CubeAction.class);
 
     public CubeAction() {
     }
     /**
-     * Calculate cube area by formula: S=6*a*a, where a - is cube side
-     *
-     * @param cube
-     * @return area
+     * Calculate cube area by formula: S=6*a*a, where a - is cube side.
+     * @param cube -to calculate area of (already validated by {@link by.epam.learn.daryatarasevich.shapes.cube.validation.Validator})
      */
-    public int countCubeArea(Cube cube){
-      if (cube==null) {
-          logger.error(MessageConstants.CUBE_IS_NULL);
-      throw new NullPointerException(MessageConstants.CUBE_IS_NULL);
-      }
-        int side=countCubeSide(cube);
-        int area=CUBE_AREA_CONSTANT*side*side;
-        return area;
+    public int calculateArea(Cube cube){
+        int side= calculateSide(cube);
+        return CUBE_AREA_CONSTANT*side*side;
     }
+    
     /**
-     * Calculate cube volume by formula: V=a*a*a, where a - is cube side
+     * Calculate cube volume by formula: V=a*a*a, where a - is cube side.
      *
-     * @param cube
-     * @return volume
+     * @param cube -to calculate volume of (already validated by {@link Validator})
+     *
      */
-    public int countCubeVolume(Cube cube){
-        if (cube==null) {
-            logger.error(MessageConstants.CUBE_IS_NULL);
-            throw new NullPointerException(MessageConstants.CUBE_IS_NULL);
-        }
-        int side=countCubeSide(cube);
-        int volume= (int) Math.pow(side,CUBE_VOLUME_CONSTANT);
-        return volume;
+     
+    public int calculateVolume(Cube cube){
+        int side= calculateSide(cube);
+        return (int) Math.pow(side,CUBE_VOLUME_CONSTANT);
     }
+    
     /**
      * Calculate cube side by formula: side=b-a, where b - is cube coordinate x of point 1,
-     * a- is cube coordinate x of point 0. As all cube sides are equal. All points should be in specific order.
+     * a- is cube coordinate x of point 0. As all cube sides are equal. to cube--->All points should be in specific order.
+     * @see Cube#getPoints()
      *
-     * @param cube
+     * @param cube -to calculate side of (already validated by {@link by.epam.learn.daryatarasevich.shapes.cube.validation.Validator})
      * @return side
      */
-    public int countCubeSide(Cube cube){
-        if (cube==null) {
-            logger.error(MessageConstants.CUBE_IS_NULL);
-            throw new NullPointerException(MessageConstants.CUBE_IS_NULL);
-        }
+     
+    public int calculateSide(Cube cube){
         Point[] points=cube.getPoints();
-        int side=Math.abs(points[1].getX()-points[0].getX());
-        return side;
+        return Math.abs(points[1].getX()-points[0].getX());
     }
+    
     /**
      * Calculate cube volume ratio divided by plane x by formula: ratio=v1/v2, where v1-is volume of upper part,
      * v2-volume of lower part of cube divided by x plane. Cube is located parallel to planes x,y,z.
      *
-     * @param cube
+     * @param cube-to calculate volume ratio of (already validated by {@link by.epam.learn.daryatarasevich.shapes.cube.validation.Validator})
      * @return ratio
      */
-    public double countVolumeRatioDividedByXPlane(Cube cube){
-        if (cube==null) {
-            logger.error(MessageConstants.CUBE_IS_NULL);
-            throw new NullPointerException(MessageConstants.CUBE_IS_NULL);
-        }
+     
+    public double calculateVolumeRatioDividedByXPlane(Cube cube){
         Point[] points=cube.getPoints();
         double up=points[0].getY();
         double down=points[4].getY();
         if (up<=0||down>=0){
             return 0;
         }
-        double volumeFirst= countVolumeFirst(cube, up);
-        double volumeSecond= countVolumeSecond(cube, down);
-        double ratio=volumeFirst/volumeSecond;
+        double volumeFirst= calculateVolumePart(cube, up);
+        double volumeSecond= calculateVolumePart(cube, down);
+        double ratio=Math.abs(volumeFirst/volumeSecond);
         return ratio;
     }
+    
     /**
-     * Calculate cube volume of upper part,of cube divided by x plane by formula: V1=V*r, where V is total volume of cube,
-     * r is calculated by formula r=a/b, where a is part of cube side located upper than x plane,b is cube side.
-     *up is coordinate x of the cube side located upper than x plane.
+     * Calculate cube volume of upper or lower part,of cube divided by x plane by formula: V1=V*r, where V is total volume of cube,
+     * r is calculated by formula r=a/b, where a is part of cube side located upper or lower than x plane,b is cube side,
+     * value is coordinate x of the cube side located upper or lower than x plane.
      *
-     * @param cube
-     * @param up
-     * @return volumeFirst
+     * @param cube-to calculate volume of a part of (already validated by {@link by.epam.learn.daryatarasevich.shapes.cube.validation.Validator})
+     * @param value -coordinate x located upper or lower than x plane
+     * @return volume
      */
-    private double countVolumeFirst(Cube cube, double up){
-        int allVolume=countCubeVolume(cube);
-        int side=countCubeSide(cube);
-        double ratio=up/side;
-        double volumeFirst=allVolume*ratio;
-        return volumeFirst;
+     
+    private double calculateVolumePart(Cube cube, double value){
+        int allVolume= calculateVolume(cube);
+        int side= calculateSide(cube);
+        double ratio=value/side;
+        double volume=allVolume*ratio;
+        return volume;
     }
+    
     /**
-     * Calculate cube volume of upper part,of cube divided by x plane by formula: V2=V*r, where V is total volume of cube,
-     * r is calculated by formula r=Math.abs(a/b), where a is part of cube side located lowerthan x plane,b is cube side.
-     *down is coordinate x of the cube side located lower than x plane.
+     * To prove that cube is located on coordinate plane.
      *
-     * @param cube
-     * @param down
-     * @return volumeSecond
-     */
-    private double countVolumeSecond(Cube cube, double down){
-        int allVolume=countCubeVolume(cube);
-        int side=countCubeSide(cube);
-        double ratio= Math.abs(down/side);
-        double volumeSecond=allVolume*ratio;
-        return volumeSecond;
-    }
-    /**
-     * @param cube
-     * @param coordinateName
+     * @param cube-to calculate volume of a part of (already validated by {@link by.epam.learn.daryatarasevich.shapes.cube.validation.Validator})
+     * @param coordinate -enum coordinate x,y,or z.
      * @return true if cube is on coordinate
      */
-    public boolean isCubeOnCoordinate(Cube cube,String coordinateName){
-        if (cube==null) {
-            logger.error(MessageConstants.CUBE_IS_NULL);
-            throw new NullPointerException(MessageConstants.CUBE_IS_NULL); }
+     
+    public boolean isCubeOnCoordinate(Cube cube, Coordinate coordinate) throws IllegalCoordinateException {
         Point[] points=cube.getPoints();
         int count=0;
         for (int i=0;i<points.length;i++){
-        switch (coordinateName){
-            case ("x"):
+        switch (coordinate){
+            case X:
                     if (points[i].getX()==0){
                         count++; }
-            case ("y"):
+            case Y:
                     if (points[i].getY()==0){
                         count++; }
-            case ("z"):
+            case Z:
                     if (points[i].getZ()==0){
                         count++; }
+                break;
+            default:
+                throw new IllegalCoordinateException("Unexpected value: " + coordinate);
         }}
-        if (count==4){
-                return true; }
-        return false;
+                return count==4;
     }
+    
     /**
+     * To prove that object is cube.
+     *
      * @param o
      * @return true if object is cube
      */
+     
     public boolean isCube(Object o){
         if (o==null) {
-            logger.error(MessageConstants.CUBE_IS_NULL);
+            LOGGER.error(MessageConstants.CUBE_IS_NULL);
             throw new NullPointerException(MessageConstants.CUBE_IS_NULL);
         }
-        return o.getClass().getSimpleName().equalsIgnoreCase("cube");
+        return o.getClass().equals(Cube.class);
     }
 }
 
