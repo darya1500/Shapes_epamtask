@@ -1,0 +1,8 @@
+package by.epam.learn.daryatarasevich.shapes.cube.exception;
+
+public class IllegalCoordinateException extends Exception {
+
+    public IllegalCoordinateException(String message) {
+        super(message);
+    }
+}
