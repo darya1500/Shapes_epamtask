@@ -9,9 +9,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CubeCreator extends ShapeCreator{
-    private static final Logger logger = LogManager.getLogger(CubeCreator.class);
+    private static final Logger LOGGER = LogManager.getLogger(CubeCreator.class);
+
     public CubeCreator() {
     }
+    
     /**
      * Create cube with a set of points organized in specific order
      *
@@ -21,15 +23,14 @@ public class CubeCreator extends ShapeCreator{
     @Override
     public Cube create(Point[] points) throws CubeNotExistException {
         if (points==null) {
-            logger.error(MessageConstants.POINTS_ARE_NULL);
+            LOGGER.error(MessageConstants.POINTS_ARE_NULL);
             throw new NullPointerException(MessageConstants.POINTS_ARE_NULL);
         }
         Validator validator=new Validator();
         if (!validator.validateCube(points)){
             throw new CubeNotExistException(MessageConstants.CUBE_NOT_EXIST);
         }
-        Cube cube=new Cube();
-        cube.setPoints(points);
+        Cube cube=new Cube(points);
         return cube;
     }
 }
