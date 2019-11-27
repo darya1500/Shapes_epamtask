@@ -1,0 +1,18 @@
+package by.epam.learn.daryatarasevich.shapes.cube.specification;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+
+public class ByIdSpecification implements Specification<Shape> {
+    private long desiredID;
+    private Shape shape;
+
+    public ByIdSpecification(long id) {
+        this.desiredID = id;
+    }
+
+    @Override
+    public boolean specified(Shape shape) {
+        this.shape = shape;
+        return shape.getId()==desiredID;
+    }
+}
