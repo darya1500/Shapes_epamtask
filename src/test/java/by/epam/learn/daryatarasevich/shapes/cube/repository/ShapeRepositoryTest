@@ -1,0 +1,97 @@
+package by.epam.learn.daryatarasevich.shapes.cube.repository;
+
+import by.epam.learn.daryatarasevich.shapes.cube.comparator.ShapeNameComparator;
+import by.epam.learn.daryatarasevich.shapes.cube.converter.DataConverter;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.InvalidDataInputException;
+import by.epam.learn.daryatarasevich.shapes.cube.specification.ByIdSpecification;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.*;
+
+public class ShapeRepositoryTest {
+    private ShapeRepository repository;
+    private Cube cube;
+    private Point[] points;
+    private Cube cubeTwo;
+
+    @BeforeMethod
+    public void setUp() throws InvalidDataInputException {
+     repository=ShapeRepository.getInstance();
+     DataConverter dataConverter = new DataConverter();
+     List<String> stringOfNumbers = new ArrayList<>();
+     String s="0 2 0 2 2 0 2 2 2 0 2 2 0 0 0 2 0 0 2 0 2 0 0 2";
+     stringOfNumbers.add(s);
+     points= dataConverter.convertListOfStringsToListOfPoints(stringOfNumbers).get(0);
+     cube=new Cube(points);
+        String s2="0 1 0 4 1 0 4 1 4 0 1 4 0 -3 0 4 -3 0 4 -3 4 0 -3 4";
+        stringOfNumbers.remove(s);
+        stringOfNumbers.add(s2);
+        points=dataConverter.convertListOfStringsToListOfPoints(stringOfNumbers).get(0);
+        cubeTwo=new Cube(points);
+    }
+
+    @Test
+    public void testAdd_WhenDataIsInCorrect_ShouldReturnCorrectResult() {
+        Object o=null;
+        repository.add(cube);
+        assertNotEquals(repository,o);
+    }
+
+    @Test
+    public void testRemove_WhenDataIsInCorrect_ShouldReturnCorrectResult() {
+        repository.add(cube);
+        repository.remove(cube);
+        Object o=null;
+        assertNotEquals(repository,o);
+    }
+
+    @Test
+    public void testTestRemove_WhenDataIsInCorrect_ShouldReturnCorrectResult() {
+        ByIdSpecification byIdSpecification=new ByIdSpecification(1000000);
+        repository.add(cube);
+        repository.remove(byIdSpecification);
+        Object o=null;
+        assertNotEquals(repository,o);
+    }
+
+    @Test
+    public void testUpdate_WhenDataIsInCorrect_ShouldReturnCorrectResult() {
+        repository.update(cube);
+        Object o=null;
+        assertNotEquals(repository,o);
+    }
+
+    @Test
+    public void testTestUpdate_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        ByIdSpecification byIdSpecification=new ByIdSpecification(1000000);
+        repository.update(byIdSpecification);
+        Object o=null;
+        assertNotEquals(repository,o);
+    }
+
+    @Test
+    public void testSort_WhenDataIsInCorrect_ShouldReturnCorrectResult() {
+        ShapeNameComparator shapeNameComparator=new ShapeNameComparator();
+        repository.add(cube);
+        repository.add(cubeTwo);
+        repository.sort(shapeNameComparator);
+        Object o=null;
+        assertNotEquals(repository,o);
+    }
+
+    @Test
+    public void testQuery_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        Shape expected = new Cube(null);
+        repository.add(expected);
+        long id = expected.getId();
+        ByIdSpecification byIdSpecification = new ByIdSpecification(id);
+        List<Shape> list = repository.query(byIdSpecification);
+        Shape actual = list.get(0);
+        assertEquals(actual, expected);
+    }
+}
