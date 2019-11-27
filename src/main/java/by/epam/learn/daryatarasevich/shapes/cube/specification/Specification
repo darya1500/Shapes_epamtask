@@ -1,0 +1,5 @@
+package by.epam.learn.daryatarasevich.shapes.cube.specification;
+
+public interface Specification<T> {
+    boolean specified(T t);
+}
