@@ -1,0 +1,24 @@
+package by.epam.learn.daryatarasevich.shapes.cube.warehouse;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Warehouse {
+        private static final Warehouse INSTANCE=new Warehouse();
+        public static Map<Long,DataForStorage> storageMap=new HashMap<>();
+
+    private Warehouse() {
+    }
+
+    public static Warehouse getInstance(){
+        return INSTANCE;
+    }
+
+    public DataForStorage put(long id,DataForStorage dataForStorage){
+        return storageMap.put(id,dataForStorage);
+    }
+
+    public DataForStorage getDataForStorage(Long id) {
+        return storageMap.get(id);
+    }
+}
