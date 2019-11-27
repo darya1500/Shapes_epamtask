@@ -1,0 +1,20 @@
+package by.epam.learn.daryatarasevich.shapes.cube.action;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+
+public class ShapeAction {
+    public ShapeAction() {
+    }
+
+    public int calculateArea(Shape shape){
+        return 0;
+    }
+
+    public int calculateVolume(Shape shape){
+    return 0;
+    }
+    
+    public int calculateSide(Shape shape){
+    return 0;
+    }
+}
