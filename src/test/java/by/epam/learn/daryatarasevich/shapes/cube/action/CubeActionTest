@@ -1,7 +1,9 @@
 package by.epam.learn.daryatarasevich.shapes.cube.action;
 
+import by.epam.learn.daryatarasevich.shapes.cube.constant.Coordinate;
 import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
 import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.IllegalCoordinateException;
 import org.testng.annotations.*;
 import static org.testng.Assert.*;
 
@@ -21,46 +23,46 @@ public class CubeActionTest {
     }
 
     @Test
-    public void testCountCubeArea_WhenDataIsCorrect_ShouldReturnCorrectResult() {
-        int actual=cubeAction.countCubeArea(cube);
+    public void testCalculateArea_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        int actual=cubeAction.calculateArea(cube);
         int expected=96;
         assertEquals(actual,expected);
     }
 
     @Test
-    public void testCountCubeVolume_WhenDataIsCorrect_ShouldReturnCorrectResult() {
-        int actual=cubeAction.countCubeVolume(cube);
+    public void testCalculateVolume_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        int actual=cubeAction.calculateVolume(cube);
         int expected=64;
         assertEquals(actual,expected);
     }
 
     @Test
-    public void testCountCubeSide_WhenDataIsCorrect_ShouldReturnCorrectResult() {
-        int actual=cubeAction.countCubeSide(cube);
+    public void testCalculateSide_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        int actual=cubeAction.calculateSide(cube);
         int expected=4;
         assertEquals(actual,expected);
     }
 
     @Test
-    public void testCountVolumeRatioDividedByXPlane_WhenDataIsCorrect_ShouldReturnTrueResult() {
-        double actual=cubeAction.countVolumeRatioDividedByXPlane(cube);
+    public void testCalculateVolumeRatioDividedByXPlane_WhenDataIsCorrect_ShouldReturnTrueResult() {
+        double actual=cubeAction.calculateVolumeRatioDividedByXPlane(cube);
         double expected=0.3333333333333333;
         assertEquals(actual,expected);
     }
 
     @Test
-    public void testIsCubeOnCoordinate_Y_WhenDataIncorrect_ShouldReturnTrueResult() {
-        assertTrue(cubeAction.isCubeOnCoordinate(cube,"y"));
+    public void testIsCubeOnCoordinate_Y_WhenDataIncorrect_ShouldReturnTrueResult() throws IllegalCoordinateException {
+        assertTrue(cubeAction.isCubeOnCoordinate(cube, Coordinate.Y));
     }
 
     @Test
-    public void testIsCubeOnCoordinate_Z_WhenDataIsCorrect_ShouldReturnTrueResult() {
-        assertTrue(cubeAction.isCubeOnCoordinate(cube,"z"));
+    public void testIsCubeOnCoordinate_Z_WhenDataIsCorrect_ShouldReturnTrueResult() throws IllegalCoordinateException {
+        assertTrue(cubeAction.isCubeOnCoordinate(cube,Coordinate.Z));
     }
 
     @Test
-    public void testIsCubeOnCoordinate_X_WhenDataIsIncorrect_ShouldReturnFalseResult() {
-        assertFalse(cubeAction.isCubeOnCoordinate(cube,"x"));
+    public void testIsCubeOnCoordinate_X_WhenDataIsIncorrect_ShouldReturnFalseResult() throws IllegalCoordinateException {
+        assertFalse(cubeAction.isCubeOnCoordinate(cube,Coordinate.X));
     }
 
     @Test
