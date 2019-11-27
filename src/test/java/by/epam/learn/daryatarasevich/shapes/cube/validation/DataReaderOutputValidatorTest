@@ -1,0 +1,20 @@
+package by.epam.learn.daryatarasevich.shapes.cube.validation;
+
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
+
+public class DataReaderOutputValidatorTest {
+    private DataReaderOutputValidator dataReaderOutputValidator;
+    private String string;
+
+    @BeforeMethod
+    public void setUp() {
+        dataReaderOutputValidator=new DataReaderOutputValidator();
+        string="0 1 0 4 1 0 4 1 4 0 1 4 0 -3 0 4 -3 0 4 -3 4 0 -3 4";
+    }
+    @Test
+    public void testValidateDataReaderOutput_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        assertTrue(dataReaderOutputValidator.validateDataReaderOutput(string));
+    }
+}
