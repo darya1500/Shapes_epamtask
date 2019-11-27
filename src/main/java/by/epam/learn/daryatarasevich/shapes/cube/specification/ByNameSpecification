@@ -1,0 +1,17 @@
+package by.epam.learn.daryatarasevich.shapes.cube.specification;
+
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Shape;
+
+public class ByNameSpecification implements Specification<Shape> {
+    private String desiredName;
+
+    public ByNameSpecification(String name) {
+        super();
+        this.desiredName = name;
+    }
+
+    @Override
+    public boolean specified(Shape shape) {
+        return desiredName.equalsIgnoreCase(shape.getClass().getSimpleName());
+    }
+}
