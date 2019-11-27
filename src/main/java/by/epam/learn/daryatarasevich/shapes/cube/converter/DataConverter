@@ -3,46 +3,43 @@ package by.epam.learn.daryatarasevich.shapes.cube.converter;
 import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
 import by.epam.learn.daryatarasevich.shapes.cube.exception.InvalidDataInputException;
 import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
-import by.epam.learn.daryatarasevich.shapes.cube.validation.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataConverter {
-    private static final Logger logger = LogManager.getLogger(DataConverter.class);
+    private static final Logger LOGGER = LogManager.getLogger(DataConverter.class);
 
     public DataConverter() {
     }
+
     /**
      * Convert data from List of Strings to List of Point[].
      *
-     * @param listOfStrings
+     * @param listOfStrings (already validated by {@link by.epam.learn.daryatarasevich.shapes.cube.validation.Validator})
      * @return listOfPoints
      */
-    public ArrayList<Point[]> convertListOfStringsToListOfPoints(List<String> listOfStrings) throws InvalidDataInputException {
-        if (listOfStrings==null) {
-            logger.error(MessageConstants.LIST_OF_STRINGS_IS_NULL);
-            throw new NullPointerException(MessageConstants.LIST_OF_STRINGS_IS_NULL);
-        }
+
+    public List<Point[]> convertListOfStringsToListOfPoints(List<String> listOfStrings) throws InvalidDataInputException {
         ArrayList<Integer[]> listOfValues=new ArrayList<>();
-        Validator dataValidator=new Validator();
         ArrayList<Point[]> listOfPoints=new ArrayList<>();
-           if(!dataValidator.validateDataReaderOutput(listOfStrings)){
-               logger.error(MessageConstants.INVALID_DATA_INPUT);
-               throw new InvalidDataInputException(MessageConstants.INVALID_DATA_INPUT);
-           }
-        for (int i=0;i<listOfStrings.size();i++){
-            String[] temporary=listOfStrings.get(i).split(" ");
+        for (String string:listOfStrings){
+            string=string.replaceAll("\n","");
+            String[] temporary=string.split(" ");
             Integer[] temporaryInt=new Integer[temporary.length];
             for (int j=0;j<temporary.length;j++){
+             try{
                 temporaryInt[j]= Integer.parseInt(temporary[j]);
+             }catch (NumberFormatException e){
+             }
             }
             listOfValues.add(temporaryInt);
-    }
-        listOfPoints=convertListOfIntToPoints(listOfValues);
+        }
+        listOfPoints=convertListOfIntToPoints(listOfValues);   // method converts list of Integer[] to list of Point[]
         return listOfPoints;
     }
+    
     /**
      * Convert data from List of Integer[] to List of Point[].
      *
@@ -51,21 +48,21 @@ public class DataConverter {
      */
     private ArrayList<Point[]> convertListOfIntToPoints(List<Integer[]> list){
         if (list==null) {
-            logger.error(MessageConstants.LIST_IS_NULL);
+            LOGGER.error(MessageConstants.LIST_IS_NULL);
             throw new NullPointerException(MessageConstants.LIST_IS_NULL);
         }
         ArrayList<Point[]> listOfPoints=new ArrayList<>();
-        for (int i=0;i<list.size();i++){
+        for (Integer[] array:list){
             Point[] points=new Point[8];
             int z=0;
-            for (int j=0;j<list.get(i).length-2;){
-              Point point=new Point(list.get(i)[j],list.get(i)[j+1],list.get(i)[j+2]);
-              points[z]=point;
-              z++;
-              j=j+3;
-          }
-          listOfPoints.add(points);
-    }
+            for (int j=0;j<array.length-2;){
+                Point point=new Point(array[j],array[j+1],array[j+2]); //array[j] is x coordinate, array[j+1] is y coordinate, array[j+2] is z coordinate
+                points[z]=point;
+                z++;
+                j=j+3;      // 3 is added as we go to next set of coordinates x,y,z.
+            }
+            listOfPoints.add(points);
+        }
         return listOfPoints;
     }
 }
