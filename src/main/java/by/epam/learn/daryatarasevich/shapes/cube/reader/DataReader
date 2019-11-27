@@ -2,7 +2,7 @@ package by.epam.learn.daryatarasevich.shapes.cube.reader;
 
 import by.epam.learn.daryatarasevich.shapes.cube.exception.IncorrectFilePathException;
 import by.epam.learn.daryatarasevich.shapes.cube.constant.MessageConstants;
-import by.epam.learn.daryatarasevich.shapes.cube.validation.Validator;
+import by.epam.learn.daryatarasevich.shapes.cube.validation.FileValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
@@ -13,10 +13,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DataReader {
-    private static final Logger logger = LogManager.getLogger(DataReader.class);
+    private static final Logger LOGGER = LogManager.getLogger(DataReader.class);
 
     public DataReader() {
     }
+    
     /**
      * Read data from text file to List of Strings.
      *
@@ -25,12 +26,12 @@ public class DataReader {
      */
     public List<String> readFromTextFileToListOfStrings(String filePath) throws IOException, IncorrectFilePathException {
         if (filePath==null) {
-            logger.error(MessageConstants.FILEPATH_IS_NULL);
+            LOGGER.error(MessageConstants.FILEPATH_IS_NULL);
             throw new NullPointerException(MessageConstants.FILEPATH_IS_NULL);
         }
-        Validator validator=new Validator();
-        if (!validator.doesFileExist(filePath)){
-            logger.error(MessageConstants.FILE_NAME_IS_INCORRECT);
+        FileValidator fileValidator=new FileValidator();
+        if (!fileValidator.doesFileExist(filePath)){
+            LOGGER.error(MessageConstants.FILE_NAME_IS_INCORRECT);
             throw new IncorrectFilePathException(MessageConstants.FILE_NAME_IS_INCORRECT);
         }
         Stream<String> stream = Files.lines(Paths.get(filePath));
