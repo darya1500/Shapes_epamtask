@@ -1,0 +1,35 @@
+package by.epam.learn.daryatarasevich.shapes.cube.comparator;
+
+import by.epam.learn.daryatarasevich.shapes.cube.converter.DataConverter;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Cube;
+import by.epam.learn.daryatarasevich.shapes.cube.entity.Point;
+import by.epam.learn.daryatarasevich.shapes.cube.exception.InvalidDataInputException;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.*;
+
+public class ByFirstPointXCoordinateComparatorTest {
+    private Cube cube;
+    private Cube cubeTwo;
+    private ByFirstPointXCoordinateComparator byFirstPointXCoordinateComparator;
+
+    @BeforeMethod
+    public void setUp() throws InvalidDataInputException {
+        DataConverter dataConverter = new DataConverter();
+        List<String> stringOfNumbers = new ArrayList<>();
+        String s="0 2 0 2 2 0 2 2 2 0 2 2 0 0 0 2 0 0 2 0 2 0 0 2";
+        stringOfNumbers.add(s);
+        Point[] p = dataConverter.convertListOfStringsToListOfPoints(stringOfNumbers).get(0);
+        cube =new Cube(p);
+        cubeTwo=new Cube(p);
+        byFirstPointXCoordinateComparator =new ByFirstPointXCoordinateComparator();
+    }
+
+    @Test
+    public void testCompare_WhenDataIsCorrect_ShouldReturnCorrectResult() {
+        int expected=0;
+        assertEquals(byFirstPointXCoordinateComparator.compare(cube,cubeTwo),expected);
+    }
+}
