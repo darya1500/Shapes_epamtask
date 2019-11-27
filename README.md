@@ -31,9 +31,9 @@ Objects не использовать.
 + Класс с методом main в задании должен отсутствовать. Запуск только тестами.
 
 #### Task Shapes Chapter B
-+ Площади, Объемы, Периметры фигур должны храниться в объекте класса-Warehouse.
-+ Любое изменение параметра фигуры должно вызывать пересчет соответствующих значений в классе- Warehouse.
-Для решения данной задачи использовать паттерны Observer (можно использовать Flow API) и Singleton 
++ Площади, Объемы, Периметры фигур должны храниться в объекте класса-[Warehouse](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/warehouse/Warehouse).
++ Любое изменение параметра фигуры должно вызывать [пересчет соответствующих значений в классе- Warehouse](https://github.com/darya1500/epam_training/blob/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/observer/ShapeObserver).
+Для решения данной задачи использовать паттерны [Observer](https://github.com/darya1500/epam_training/tree/master/src/main/java/by/epam/learn/daryatarasevich/shapes/cube/observer) (можно использовать Flow API) и Singleton 
 (потокобезопасные варианты использовать запрещено).
 + Все созданные объекты геометрических фигур сохранить в объекте-репозитории.
 + Используя шаблон Repository, разработать спецификации по добавлению, удалению и изменению объектов репозитория.
