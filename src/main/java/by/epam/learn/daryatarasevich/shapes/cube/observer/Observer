@@ -1,0 +1,6 @@
+package by.epam.learn.daryatarasevich.shapes.cube.observer;
+
+public interface Observer {
+
+    void handleEvent(ShapeEvent event);
+}
